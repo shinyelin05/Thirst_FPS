@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     private bool isGameOver;
 
+    int coinCount = 0;
+
     public bool IsGameOver
     {
         get => isGameOver;
@@ -118,5 +120,6 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
+    
   
 }
