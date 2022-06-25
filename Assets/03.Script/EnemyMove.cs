@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class MonsterCtrl : MonoBehaviour
+public class EnemyMove : MonoBehaviour
 {
     // 몬스터의 상태 정보
     public enum State
@@ -26,10 +26,14 @@ public class MonsterCtrl : MonoBehaviour
     private Transform monsterTransform;
     private Transform targetTransform;
     private NavMeshAgent agent;
-    //private Animator anim;
+    private Animator anim;
 
-    //// Animator 해쉬 값 추출
-    //private readonly int hashTrace = Animator.StringToHash("IsTrace");
+
+    private readonly int hashTrace = Animator.StringToHash("IsMove");
+    // Animator 해쉬 값 추출
+    //private readonly int hashMove = Animator.StringToHash("IsMove");
+
+    
     //private readonly int hashAttack = Animator.StringToHash("IsAttack");
     //private readonly int hashHit = Animator.StringToHash("Hit");
     //private readonly int hashPlayerDie = Animator.StringToHash("PlayerDie");
@@ -43,7 +47,7 @@ public class MonsterCtrl : MonoBehaviour
     private GameObject bloodEffect;
     void Awake()
     {
-
+        Debug.Log(currentHp);
         monsterTransform = GetComponent<Transform>();
 
         targetTransform = GameObject.FindWithTag("PLAYER").GetComponent<Transform>();
@@ -51,7 +55,7 @@ public class MonsterCtrl : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
 
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
 
         bloodEffect = Resources.Load<GameObject>("BloodSprayEffect");
     }
@@ -61,9 +65,9 @@ public class MonsterCtrl : MonoBehaviour
         {
             Vector3 dir = agent.desiredVelocity;
 
-            Quaternion rot = Quaternion.LookRotation(dir);
+          //  Quaternion rot = Quaternion.LookRotation(dir);
 
-            monsterTransform.rotation = Quaternion.Slerp(monsterTransform.rotation, rot, Time.deltaTime * 10.0f);
+            //monsterTransform.rotation = Quaternion.Slerp(monsterTransform.rotation, rot, Time.deltaTime * 10.0f);
         }
     }
     private void OnEnable()
@@ -75,7 +79,7 @@ public class MonsterCtrl : MonoBehaviour
         currentHp = iniHp;
         isDie = false;
 
-        GetComponent<CapsuleCollider>().enabled = true;
+        GetComponent<CapsuleCollider>().enabled = true; 
         SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
         foreach (SphereCollider sp in spheres)
         {
@@ -85,7 +89,7 @@ public class MonsterCtrl : MonoBehaviour
         StartCoroutine(CheckMonsterState());
 
         // 상태에 따라 몬스터의 행동을 수행하는 코루틴 함수
-        //StartCoroutine(MonsterAction());
+        StartCoroutine(MonsterAction());
     }
 
     IEnumerator CheckMonsterState()
@@ -116,53 +120,53 @@ public class MonsterCtrl : MonoBehaviour
         }
     }
 
-    //IEnumerator MonsterAction()
-    //{
-    //    while (!isDie)
-    //    {
-    //        switch (state)
-    //        {
-    //            case State.IDLE:
-    //                agent.isStopped = true;
-    //                anim.SetBool(hashTrace, false);
-    //                break;
-    //            case State.TRACE:
-    //                agent.SetDestination(targetTransform.position);
-    //                agent.isStopped = false;
-    //                anim.SetBool(hashTrace, true);
-    //                anim.SetBool(hashAttack, false);
-    //                break;
-    //            case State.ATTACK:
-    //                anim.SetBool(hashAttack, true);
-    //                break;
-    //            case State.DIE:
-    //                isDie = true;
-    //                agent.isStopped = true;
-    //                anim.SetTrigger(hashDie);
+    IEnumerator MonsterAction()
+    {
+        while (!isDie)
+        {
+            switch (state)
+            {
+                case State.IDLE:
+                    agent.isStopped = true;
+                    anim.SetBool(hashTrace, false);
+                    break;
+                case State.TRACE:
+                    agent.SetDestination(targetTransform.position);
+                    agent.isStopped = false;
+                    anim.SetBool(hashTrace, true);
+                   // anim.SetBool(hashAttack, false);
+                    break;
+                case State.ATTACK:
+                    //anim.SetBool(hashAttack, true);
+                    break;
+                case State.DIE:
+                    isDie = true;
+                    agent.isStopped = true;
+                    //anim.SetTrigger(hashDie);
 
-    //                GetComponent<CapsuleCollider>().enabled = false;
-    //                SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
-    //                foreach (SphereCollider sp in spheres)
-    //                {
-    //                    sp.enabled = false;
-    //                }
+                    GetComponent<CapsuleCollider>().enabled = false;
+                    SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
+                    foreach (SphereCollider sp in spheres)
+                    {
+                        sp.enabled = false;
+                    }
 
-    //                yield return new WaitForSeconds(3.0f);
+                    yield return new WaitForSeconds(3.0f);
 
-    //                this.gameObject.SetActive(false);
-    //                break;
-    //            case State.PLAYERDIE:
-    //                StopAllCoroutines();
+                    this.gameObject.SetActive(false);
+                    break;
+                case State.PLAYERDIE:
+                    StopAllCoroutines();
 
-    //                // 추적 정지
-    //                agent.isStopped = true;
-    //                anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.3f));
-    //                anim.SetTrigger(hashPlayerDie);
-    //                break;
-    //        }
-    //        yield return new WaitForSeconds(0.3f);
-    //    }
-    //}
+                    // 추적 정지
+                    agent.isStopped = true;
+                  //  anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.3f));
+                   // anim.SetTrigger(hashPlayerDie);
+                    break;
+            }
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -178,7 +182,7 @@ public class MonsterCtrl : MonoBehaviour
             // 총알 충돌 지점의 법선 벡터
             Quaternion rot = Quaternion.LookRotation(-collision.GetContact(0).normal);
 
-            ShowBloodEffect(pos, rot);
+           // ShowBloodEffect(pos, rot);
 
             currentHp -= 10;
             if (currentHp <= 0)
@@ -190,18 +194,18 @@ public class MonsterCtrl : MonoBehaviour
         }
     }
 
-    private void ShowBloodEffect(Vector3 pos, Quaternion rot)
-    {
-        //혈흔 효과 생성
-        GameObject blood = Instantiate<GameObject>(bloodEffect, pos, rot, monsterTransform);
-        Destroy(blood, 1.0f);
-    }
+    //private void ShowBloodEffect(Vector3 pos, Quaternion rot)
+    //{
+    //    //혈흔 효과 생성
+    //    GameObject blood = Instantiate<GameObject>(bloodEffect, pos, rot, monsterTransform);
+    //    Destroy(blood, 1.0f);
+    //}
 
-    void OnPlayerDie()
-    {
-        state = State.PLAYERDIE;
+    //void OnPlayerDie()
+    //{
+    //    state = State.PLAYERDIE;
 
-    }
+    //}
 
     void OnDrawGizmos()
     {

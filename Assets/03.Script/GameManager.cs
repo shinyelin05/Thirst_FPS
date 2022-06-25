@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
         //DisplayScore(0);
 
-        CreateMonsterPool();
+      //  CreateMonsterPool();
 
         Transform spawnPointGroup = GameObject.Find("SpawnPointGroup")?.transform;
 
@@ -85,40 +85,40 @@ public class GameManager : MonoBehaviour
     {
         int idx = Random.Range(0, points.Count);
 
-        GameObject _monster = GetMonsterInPool();
+       // GameObject _monster = GetMonsterInPool();
 
-        _monster?.transform.SetPositionAndRotation(points[idx].position, points[idx].rotation);
-        _monster?.SetActive(true);
+       // _monster?.transform.SetPositionAndRotation(points[idx].position, points[idx].rotation);
+       // _monster?.SetActive(true);
 
 
     }
 
-    void CreateMonsterPool()
-    {
-        for (int i = 0; i < maxMonster; ++i)
-        {
-            var _monster = Instantiate<GameObject>(monster);
+    //void CreateMonsterPool()
+    //{
+    //    for (int i = 0; i < maxMonster; ++i)
+    //    {
+    //        var _monster = Instantiate<GameObject>(monster);
 
-            _monster.name = $"Monster_{i:00}";
+    //        _monster.name = $"Monster_{i:00}";
 
-            _monster.SetActive(false);
+    //        _monster.SetActive(false);
 
-            monsterPool.Add(_monster);
-        }
-    }
+    //        monsterPool.Add(_monster);
+    //    }
+    //}
 
-    public GameObject GetMonsterInPool()
-    {
-        foreach (var _monster in monsterPool)
-        {
-            if (_monster.activeSelf == false)
-            {
-                return _monster;
+    //public GameObject GetMonsterInPool()
+    //{
+    //    foreach (var _monster in monsterPool)
+    //    {
+    //        if (_monster.activeSelf == false)
+    //        {
+    //            return _monster;
 
-            }
-        }
-        return null;
-    }
+    //        }
+    //    }
+    //    return null;
+    //}
 
     
   
