@@ -19,6 +19,8 @@ public class PlayerMoveCode : GenericBehaviour
 	private bool isColliding;                       
 	public bool isLock;
 
+	public Camera cam;
+
 	void Start()
 	{
 		jumpBool = Animator.StringToHash("Jump");
@@ -42,7 +44,7 @@ public class PlayerMoveCode : GenericBehaviour
 			jump = true;
 		}
 
-		if (!jump && Input.GetKeyDown(KeyCode.Q))
+		if (Input.GetKeyDown(KeyCode.Q))
 		{
 			Gunplay = true;
 		}
@@ -75,13 +77,10 @@ public class PlayerMoveCode : GenericBehaviour
 
 		JumpManagement();
 
-		Gun();
+		
 	}
 
-	void Gun()
-    {
-
-    }
+	
 
 	void JumpManagement()
 	{
@@ -152,6 +151,11 @@ public class PlayerMoveCode : GenericBehaviour
 		}
 
 		behaviourManager.GetAnim.SetFloat(speedFloat, speed, speedDampTime, Time.deltaTime);
+
+		//var offset = cam.transform.forward;
+		////offset.y = 0;
+
+		//transform.LookAt(gameObject.transform.position + offset);
 	}
 
 

@@ -10,6 +10,8 @@ public class PlayerMove : MonoBehaviour
     private Transform playerTransform;
     private Animation playerAnim;
 
+    public Camera cam;
+
     //초기 생명 값
     private readonly float initHp = 100.0f;
     //현재 생명 값
@@ -33,16 +35,17 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        float r = Input.GetAxis("Mouse X");
+      //  float h = Input.GetAxis("Horizontal");
+      //  float v = Input.GetAxis("Vertical");
+      //  float r = Input.GetAxis("Mouse X");
+      ////  float r = cam.transform.position;
 
-        Vector3 moveDir = (Vector3.forward * v) + (Vector3.right * h);
-        moveDir.Normalize();
+      //  Vector3 moveDir = (Vector3.forward * v) + (Vector3.right * h);
+      //  moveDir.Normalize();
 
-        transform.Translate(moveDir * moveSpeed * Time.deltaTime);
+      //  transform.Translate(moveDir * moveSpeed * Time.deltaTime);
 
-        transform.Rotate(Vector3.up * r * rotationSpeed * Time.deltaTime);
+      //  transform.Rotate(Vector3.up * r * rotationSpeed * Time.deltaTime);
 
     }
 }

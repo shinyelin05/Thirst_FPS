@@ -8,11 +8,21 @@ public class BulletMove : MonoBehaviour
     public float speed = 1000.0f;
     void Start()
     {
-        GetComponent<Rigidbody>().AddForce(Vector3.forward * speed *Time.deltaTime);
+      GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed * Time.deltaTime);
+       // GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed, ForceMode.Impulse);
+     // Invoke("Destroy", 1f); ;
     }
 
     void Update()
     {
         
     }
+
+    void DestroyBullet()
+    {
+        Destroy(gameObject);
+    }
+    
+  
+
 }

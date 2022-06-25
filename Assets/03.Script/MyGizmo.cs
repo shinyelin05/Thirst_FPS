@@ -15,4 +15,6 @@ public class MyGizmo : MonoBehaviour
         // 생성위치와 반지름 설정
         Gizmos.DrawSphere(transform.position, _radius);
     }
+
+   
 }
