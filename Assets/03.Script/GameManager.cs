@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
   //  public TMP_Text scoreText;
 
-  //  private int totalScore = 0;
+   private int totalScore = 0;
 
     public GameObject monster;
 
