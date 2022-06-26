@@ -67,9 +67,14 @@ public class PlayerMoveCode : GenericBehaviour
 				Cursor.visible = false;
 			}
 		}
+
+		
 	}
 
+	//추가
+	
 
+	
 	public override void LocalFixedUpdate()
 	{
 		MovementManagement(behaviourManager.GetH, behaviourManager.GetV);

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.66173583, g: 0.45980453, b: 0.45464236, a: 1}
+  m_IndirectSpecularColor: {r: 0.66173893, g: 0.45975518, b: 0.45470095, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6407,7 +6407,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -9.400024, y: -0.024993896}
   m_SizeDelta: {x: -9.359997, y: 0.049999498}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6725,7 +6725,7 @@ GameObject:
   - component: {fileID: 1064948192}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: CUBE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18362,7 +18362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1982417633
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18453,7 +18453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2030935182
 RectTransform:
   m_ObjectHideFlags: 0

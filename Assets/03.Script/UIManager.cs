@@ -9,13 +9,12 @@ public class UIManager : MonoBehaviour
         
     }
 
-    void Update()
-    {
-        Machine();
-    }
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.collider.CompareTag("CUBE"))
+		{
 
-    void Machine()
-    {
-      //  if()
-    }
+
+		}
+	}
 }
