@@ -34,8 +34,8 @@ public class EnemyMove : MonoBehaviour
     //private readonly int hashMove = Animator.StringToHash("IsMove");
 
     
-    //private readonly int hashAttack = Animator.StringToHash("IsAttack");
-    //private readonly int hashHit = Animator.StringToHash("Hit");
+    private readonly int hashAttack = Animator.StringToHash("IsAttack");
+    private readonly int hashHit = Animator.StringToHash("hashHit");
     //private readonly int hashPlayerDie = Animator.StringToHash("PlayerDie");
     //private readonly int hashSpeed = Animator.StringToHash("Speed");
     //private readonly int hashDie = Animator.StringToHash("Die");
@@ -47,7 +47,7 @@ public class EnemyMove : MonoBehaviour
     private GameObject bloodEffect;
     void Awake()
     {
-        Debug.Log(currentHp);
+       
         monsterTransform = GetComponent<Transform>();
 
         targetTransform = GameObject.FindWithTag("PLAYER").GetComponent<Transform>();
@@ -134,10 +134,12 @@ public class EnemyMove : MonoBehaviour
                     agent.SetDestination(targetTransform.position);
                     agent.isStopped = false;
                     anim.SetBool(hashTrace, true);
-                   // anim.SetBool(hashAttack, false);
+                   anim.SetBool(hashAttack, false);
                     break;
                 case State.ATTACK:
-                    //anim.SetBool(hashAttack, true);
+                    anim.SetBool(hashAttack, true);
+
+
                     break;
                 case State.DIE:
                     isDie = true;
@@ -145,16 +147,18 @@ public class EnemyMove : MonoBehaviour
                     //anim.SetTrigger(hashDie);
 
                     GetComponent<CapsuleCollider>().enabled = false;
-                    SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
-                    foreach (SphereCollider sp in spheres)
-                    {
-                        sp.enabled = false;
-                    }
+                    //SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
+                    //foreach (SphereCollider sp in spheres)
+                    //{
+                    //    sp.enabled = false;
+                    //}
 
                     yield return new WaitForSeconds(3.0f);
 
                     this.gameObject.SetActive(false);
                     break;
+
+
                 case State.PLAYERDIE:
                     StopAllCoroutines();
 
@@ -174,8 +178,9 @@ public class EnemyMove : MonoBehaviour
         {
             Destroy(collision.gameObject);
 
+            
             //피격 리액션 애니 트리거
-            //anim.SetTrigger(hashHit);
+            anim.SetTrigger(hashHit);
 
             // 충돌 지점
             Vector3 pos = collision.GetContact(0).point;

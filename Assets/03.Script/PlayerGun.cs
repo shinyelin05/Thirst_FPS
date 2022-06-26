@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIctrl : MonoBehaviour
+public class PlayerGun : MonoBehaviour
 {
     private Animator animator;
 
@@ -13,7 +13,7 @@ public class AIctrl : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             animator.SetBool("GunPlay", true);
         }
