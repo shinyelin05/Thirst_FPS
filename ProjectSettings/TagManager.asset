@@ -8,6 +8,8 @@ TagManager:
   - PLAYER
   - ENEMY
   - CUBE
+  - GROUND
+  - TREE
   layers:
   - Default
   - TransparentFX

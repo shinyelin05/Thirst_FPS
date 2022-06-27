@@ -36,9 +36,10 @@ public class EnemyAgent : MonoBehaviour
         //최단거리 경로 계산이 끝나지 않았으면 다음을 수행하지 않음
         if (agent.isPathStale) return;
         //다음 목적지를 wayPoints 배열에서 추출한 위치로 다음 목적지를 지정
-        agent.destination = wayPoints[nextIdx].position;
+        //agent.destination = wayPoints[nextIdx].position;
+
         //내비게이션 기능을 활성화해서 이동을 시작함
-        agent.isStopped = false;
+        //agent.isStopped = false;
     }
 
     void Update()

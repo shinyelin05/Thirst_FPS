@@ -28,7 +28,9 @@ public class EnemyMove : MonoBehaviour
 
     private Transform monsterTransform;
     private Transform targetTransform;
+
     private NavMeshAgent agent;
+    
     private Animator anim;
 
 
@@ -58,7 +60,9 @@ public class EnemyMove : MonoBehaviour
 
     void Awake()
     {
-       
+        //agent.enabled = false;
+        //agent.enabled = true;
+
         monsterTransform = GetComponent<Transform>();
 
         targetTransform = GameObject.FindWithTag("PLAYER").GetComponent<Transform>();
@@ -72,14 +76,15 @@ public class EnemyMove : MonoBehaviour
     }
     private void Update()
     {
-        if (agent.remainingDistance >= 2.0f)
-        {
+        //주석
+       // if (agent.remainingDistance >= 2.0f)
+        //{
             Vector3 dir = agent.desiredVelocity;
 
           //  Quaternion rot = Quaternion.LookRotation(dir);
 
             //monsterTransform.rotation = Quaternion.Slerp(monsterTransform.rotation, rot, Time.deltaTime * 10.0f);
-        }
+       // }
     }
     private void OnEnable()
     {
@@ -100,7 +105,7 @@ public class EnemyMove : MonoBehaviour
         StartCoroutine(CheckMonsterState());
 
         // 상태에 따라 몬스터의 행동을 수행하는 코루틴 함수
-        StartCoroutine(MonsterAction());
+        //StartCoroutine(MonsterAction());
     }
 
     IEnumerator CheckMonsterState()
@@ -191,8 +196,8 @@ public class EnemyMove : MonoBehaviour
 
                     // 추적 정지
                     agent.isStopped = true;
-                  // anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.3f));
-                   // anim.SetTrigger(hashPlayerDie);
+                  //anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.3f));
+                   //anim.SetTrigger(hashPlayerDie);
                     break;
             }
             yield return new WaitForSeconds(0.3f);
@@ -209,12 +214,12 @@ public class EnemyMove : MonoBehaviour
 
 
             //피격 리액션 애니 트리거
-            //anim.SetTrigger(hashHit);
+            anim.SetTrigger(hashHit);
 
             // 충돌 지점
-            //Vector3 pos = collision.GetContact(0).point;
-            // 총알 충돌 지점의 법선 벡터
-            //Quaternion rot = Quaternion.LookRotation(-collision.GetContact(0).normal);
+            //Vector3 pos = coll.GetContact(0).point;
+             //총알 충돌 지점의 법선 벡터
+            //Quaternion rot = Quaternion.LookRotation(-coll.GetContact(0).normal);
 
            // ShowBloodEffect(pos, rot);
 

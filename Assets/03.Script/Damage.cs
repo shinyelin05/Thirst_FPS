@@ -9,11 +9,13 @@ public class Damage : MonoBehaviour
   //  private const string bulletTag = "BULLET";
     private const string enemyTag = "ENEMY";
 
+    public Image sand;
+
     private float initHp = 100.0f;
     public float currHp;
 
     private float gginitHp = 100.0f;
-    public float ggcurrHp;
+    public static float ggcurrHp;
     //BloodScreen 텍스처를 저장하기 위한 변수
     //public Image bloodScreen;
 
@@ -67,6 +69,13 @@ public class Damage : MonoBehaviour
             if (currHp <= 0.0f)
             {
                 PlayerDie();
+            }
+
+            if (coll.gameObject.name == "Tree")
+            {
+                Debug.Log("dlfjkdajfldjf");
+                sand.gameObject.SetActive(false);
+
             }
         }
     }
@@ -148,8 +157,12 @@ public class Damage : MonoBehaviour
     private void Update()
     {
         ggDisplayHpbar(); 
-        //Debug.Log(currHp);
+            
         StartCoroutine("ggTime");
 
     }
+
+   
+
+  
 }
