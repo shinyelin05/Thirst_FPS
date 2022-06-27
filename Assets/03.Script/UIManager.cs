@@ -4,7 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
-    void Start()
+	int playerScore = 0;
+
+	public Text playerScoreText;
+
+
+	void Start()
     {
         
     }

@@ -5,17 +5,24 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    public Text text;
-    public static int coinCountscore = 0;
+    //public Text Cointext;
+    public Text PlayerScoretext;
+
+    //public static int coinCountscore = 0;
+    public static int Playerscore = 0;
 
     void Start()
     {
-        text = GetComponent<Text>();
+        //Cointext = GetComponent<Text>();
+        PlayerScoretext = GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(Playerscore);
         //text.text = coinCountscore.ToString();
+        
+
     }
 }

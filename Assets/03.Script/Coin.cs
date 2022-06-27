@@ -8,19 +8,22 @@ public class Coin : MonoBehaviour
     
     float coinRotate = 100.0f;
 
+    int coinCountscore = 0;
+
+    public Text coinText;
+
     private void OnTriggerEnter(Collider other)
     {
-        Score.coinCountscore = +1;
 
         if (other.gameObject.name == "Player")
         {
            
            
             Destroy(gameObject);
+            coinCountscore += 1;
+            //Debug.Log(coinCountscore);
+            coinText.text = "Count: " + coinCountscore;
             
-
-
-
         }
     }
 
@@ -40,11 +43,8 @@ public class Coin : MonoBehaviour
     void Update()
     {
         
-           // coinCountscore = coinCountscore + 1;
-              
-
         transform.Rotate(new Vector3(0,0, coinRotate * Time.deltaTime));
-       // coinCount.text = string.Format($"Coin : {coinCountscore}");
-
+        // coinText.text = string.Format($"Coin : {0}", coinCountscore);
+        
     }
 }

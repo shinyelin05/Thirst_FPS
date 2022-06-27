@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 public class EnemyMove : MonoBehaviour
 {
     // 몬스터의 상태 정보
@@ -13,6 +14,8 @@ public class EnemyMove : MonoBehaviour
         PLAYERDIE,
         DIE
     }
+
+    private const string bulletTag = "BULLET";
 
     // 몬스터의 현재 상태
     public State state = State.IDLE;
@@ -36,15 +39,23 @@ public class EnemyMove : MonoBehaviour
     
     private readonly int hashAttack = Animator.StringToHash("IsAttack");
     private readonly int hashHit = Animator.StringToHash("hashHit");
+
+
     //private readonly int hashPlayerDie = Animator.StringToHash("PlayerDie");
     //private readonly int hashSpeed = Animator.StringToHash("Speed");
-    //private readonly int hashDie = Animator.StringToHash("Die");
+    private readonly int hashDie = Animator.StringToHash("Die");
 
     // 몬스터 생명 초기화
     private int iniHp = 100;
     private int currentHp;
 
     private GameObject bloodEffect;
+
+    //플레이어스코어
+    int Playerscore = 0;
+
+    public Text PlayerScoretext;
+
     void Awake()
     {
        
@@ -130,21 +141,34 @@ public class EnemyMove : MonoBehaviour
                     agent.isStopped = true;
                     anim.SetBool(hashTrace, false);
                     break;
+
                 case State.TRACE:
                     agent.SetDestination(targetTransform.position);
                     agent.isStopped = false;
                     anim.SetBool(hashTrace, true);
-                   anim.SetBool(hashAttack, false);
+                    anim.SetBool(hashAttack, false);
                     break;
+
                 case State.ATTACK:
                     anim.SetBool(hashAttack, true);
-
-
+                   // anim.SetTrigger(hashDie);
+                   //Debug.Log("몬스터 공격햇움.");
                     break;
+
                 case State.DIE:
+
+                    Playerscore += 100;
+                    PlayerScoretext.text = "Score: " + Playerscore;
+                    Debug.Log(Playerscore);
+
                     isDie = true;
                     agent.isStopped = true;
-                    //anim.SetTrigger(hashDie);
+
+                    //Score.Playerscore += 100;
+                    //PlayerScoretext.text = "Score: " + Playerscore;
+
+                 
+                    anim.SetTrigger(hashDie);
 
                     GetComponent<CapsuleCollider>().enabled = false;
                     //SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
@@ -153,18 +177,21 @@ public class EnemyMove : MonoBehaviour
                     //    sp.enabled = false;
                     //}
 
-                    yield return new WaitForSeconds(3.0f);
+                    yield return new WaitForSeconds(1.0f);
 
-                    this.gameObject.SetActive(false);
+                    Destroy(gameObject);
+
+                    //this.gameObject.SetActive(false);
                     break;
 
+                    
 
                 case State.PLAYERDIE:
                     StopAllCoroutines();
 
                     // 추적 정지
                     agent.isStopped = true;
-                  //  anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.3f));
+                  // anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.3f));
                    // anim.SetTrigger(hashPlayerDie);
                     break;
             }
@@ -172,24 +199,26 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider coll)
     {
-        if (collision.collider.CompareTag("BULLET"))
+        if (coll.tag == bulletTag)
         {
-            Destroy(collision.gameObject);
+            //Debug.Log("우악!");
+            anim.SetBool(hashHit, true);
+            Destroy(coll.gameObject);
 
-            
+
             //피격 리액션 애니 트리거
-            anim.SetTrigger(hashHit);
+            //anim.SetTrigger(hashHit);
 
             // 충돌 지점
-            Vector3 pos = collision.GetContact(0).point;
+            //Vector3 pos = collision.GetContact(0).point;
             // 총알 충돌 지점의 법선 벡터
-            Quaternion rot = Quaternion.LookRotation(-collision.GetContact(0).normal);
+            //Quaternion rot = Quaternion.LookRotation(-collision.GetContact(0).normal);
 
            // ShowBloodEffect(pos, rot);
 
-            currentHp -= 10;
+            currentHp -= 25;
             if (currentHp <= 0)
             {
                 state = State.DIE;
@@ -224,5 +253,10 @@ public class EnemyMove : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(monsterTransform.position, attackDist);
         }
+    }
+
+    private void FixedUpdate()
+    {
+      
     }
 }

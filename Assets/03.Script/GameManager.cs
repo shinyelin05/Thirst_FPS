@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+
     //void CreateMonsterPool()
     //{
     //    for (int i = 0; i < maxMonster; ++i)
@@ -120,6 +121,6 @@ public class GameManager : MonoBehaviour
     //    return null;
     //}
 
-    
-  
+
+
 }
