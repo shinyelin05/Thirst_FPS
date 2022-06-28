@@ -19,7 +19,7 @@ public class Coin : MonoBehaviour
         {
             Destroy(gameObject);
             coinCountscore += 1;
-            coinText.text = "Count: " + coinCountscore;
+            coinText.text = "Coin: " + coinCountscore;
         }
     }
     void Getcoin()

@@ -9,12 +9,12 @@ public class PlayerMoveCode : GenericBehaviour
 	public float runSpeed = 1.0f;                  
 	public float sprintSpeed = 2.0f;                
 	public float speedDampTime = 0.1f;                      
-	public float jumpHeight = 1.5f;                 
+	public static float jumpHeight = 1.5f;                 
 	public float jumpIntertialForce = 10f;         
 	private float speed, speedSeeker;              
 	private int jumpBool;                          
 	private int groundedBool;                      
-	private bool jump;
+	public bool jump;
 	private bool Gunplay; //추가
 	private bool isColliding;                       
 	public bool isLock;

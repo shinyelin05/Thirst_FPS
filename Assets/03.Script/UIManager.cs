@@ -4,12 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
-	int playerScore = 0;
+    //int playerScore = 0;
 
-	public Text playerScoreText;
+    //public Text playerScoreText;
 
-
-	void Start()
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            Debug.Log("À½");
+            GameQuit();
+        }
+    }
+    public void GameQuit()
+    {
+        Application.Quit();
+    }
+    void Start()
     {
         
     }

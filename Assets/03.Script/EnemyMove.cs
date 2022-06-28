@@ -36,9 +36,9 @@ public class EnemyMove : MonoBehaviour
 
     private readonly int hashTrace = Animator.StringToHash("IsMove");
     // Animator 해쉬 값 추출
-    //private readonly int hashMove = Animator.StringToHash("IsMove");
+    private readonly int hashMove = Animator.StringToHash("IsMove");
 
-    
+
     private readonly int hashAttack = Animator.StringToHash("IsAttack");
     private readonly int hashHit = Animator.StringToHash("hashHit");
 
@@ -54,7 +54,7 @@ public class EnemyMove : MonoBehaviour
     private GameObject bloodEffect;
 
     //플레이어스코어
-    int Playerscore = 0;
+    public static int  Playerscore = 0;
 
     public Text PlayerScoretext;
 
@@ -77,15 +77,16 @@ public class EnemyMove : MonoBehaviour
     private void Update()
     {
         //주석
-       // if (agent.remainingDistance >= 2.0f)
-        //{
+        if (agent.remainingDistance >= 2.0f)
+        {
             Vector3 dir = agent.desiredVelocity;
 
+         
           //  Quaternion rot = Quaternion.LookRotation(dir);
 
-            //monsterTransform.rotation = Quaternion.Slerp(monsterTransform.rotation, rot, Time.deltaTime * 10.0f);
-       // }
+       // monsterTransform.rotation = Quaternion.Slerp(monsterTransform.rotation, rot, Time.deltaTime * 10.0f);
     }
+}
     private void OnEnable()
     {
         currentHp = iniHp;
@@ -105,7 +106,7 @@ public class EnemyMove : MonoBehaviour
         StartCoroutine(CheckMonsterState());
 
         // 상태에 따라 몬스터의 행동을 수행하는 코루틴 함수
-        //StartCoroutine(MonsterAction());
+        StartCoroutine(MonsterAction());
     }
 
     IEnumerator CheckMonsterState()
@@ -169,18 +170,18 @@ public class EnemyMove : MonoBehaviour
                     isDie = true;
                     agent.isStopped = true;
 
-                    //Score.Playerscore += 100;
-                    //PlayerScoretext.text = "Score: " + Playerscore;
+                   
 
                  
                     anim.SetTrigger(hashDie);
 
                     GetComponent<CapsuleCollider>().enabled = false;
-                    //SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
-                    //foreach (SphereCollider sp in spheres)
-                    //{
-                    //    sp.enabled = false;
-                    //}
+
+                    SphereCollider[] spheres = GetComponentsInChildren<SphereCollider>();
+                    foreach (SphereCollider sp in spheres)
+                    {
+                        sp.enabled = false;
+                    }
 
                     yield return new WaitForSeconds(1.0f);
 
@@ -217,7 +218,7 @@ public class EnemyMove : MonoBehaviour
             anim.SetTrigger(hashHit);
 
             // 충돌 지점
-            //Vector3 pos = coll.GetContact(0).point;
+           // Vector3 pos = coll.GetContact(0).point;
              //총알 충돌 지점의 법선 벡터
             //Quaternion rot = Quaternion.LookRotation(-coll.GetContact(0).normal);
 
@@ -228,7 +229,7 @@ public class EnemyMove : MonoBehaviour
             {
                 state = State.DIE;
 
-              //  GameManager.Instance().DisplayScore(50);
+              // GameManager.Instance().DisplayScore(50);
             }
         }
     }

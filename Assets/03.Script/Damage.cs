@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //UI항목을 접근하기 위해 선언하는 네임스페이스
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Damage : MonoBehaviour
 {
@@ -71,12 +72,6 @@ public class Damage : MonoBehaviour
                 PlayerDie();
             }
 
-            if (coll.gameObject.name == "Tree")
-            {
-                Debug.Log("dlfjkdajfldjf");
-                sand.gameObject.SetActive(false);
-
-            }
         }
     }
      void OnTriggerStay(Collider coll)
@@ -116,6 +111,7 @@ public class Damage : MonoBehaviour
     {
        // OnPlayerDie();
         Debug.Log("PlayerDie !");
+        SceneManager.LoadScene("GameOver");
         ////"ENEMY" 태그로 지정된 모든 적 캐릭터를 추출해 배열에 저장
         //GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
 
@@ -146,8 +142,11 @@ public class Damage : MonoBehaviour
         if ((ggcurrHp / gginitHp) > 0.5f)
             currColor.r = (1 - (ggcurrHp / gginitHp)) * 2.0f;
         else//생명 수치가 0%일 때까지는 노란색에서 빨간색으로 변경
+        {
             currColor.g = (ggcurrHp / gginitHp) * 2.0f;
-
+            PlayerSlow();
+        }
+           
         //HpBar의 색상 변경
         ggBar.color = currColor;
         //HpBar의 크기 변경
@@ -160,8 +159,12 @@ public class Damage : MonoBehaviour
             
         StartCoroutine("ggTime");
 
-    }
+}
 
+    void PlayerSlow()
+    {
+       // PlayerMoveCode.jumpHeight -= 2.0f;
+    }
    
 
   

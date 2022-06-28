@@ -59,6 +59,7 @@ public class Machine : MonoBehaviour
                 Number1_Drink.gameObject.SetActive(false);
                 //갈증게이지가 10씩 높아짐
                 Damage.ggcurrHp += 10;
+                Debug.Log("음");
                 Coin.coinCountscore -= 10;
             }
         }
@@ -70,6 +71,7 @@ public class Machine : MonoBehaviour
             {
                 Number2_Drink.gameObject.SetActive(false);
                 Damage.ggcurrHp += 20;
+               
                 Coin.coinCountscore -= 20;
             }
         }
